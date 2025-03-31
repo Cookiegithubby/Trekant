@@ -24,7 +24,7 @@ function InitViewport()
     gl.clearColor(0.0, 0.4, 0.6, 1.0); //Sætter en baggrundsfarve (Bliver overridet senere alligevel - redundant)
     gl.enable(gl.DEPTH_TEST); //Starter depth buffer
     gl.enable(gl.CULL_FACE); //Aktiverer culling
-    gl.cullFace(gl.BACK); //Culler back faces af vertices
+    gl.cullFace(gl.FRONT); //Culler front face af vertices
 
     InitShaders();
 }
@@ -112,9 +112,9 @@ function ValidateShaderProgram(p)
 function CreateGeometryBuffers(program)
 {
     //En matrix der holder tre punkter og RGB værdier for trekanten
-    const vertices = [0.0, 0.5, 0.0, 1.0, 0.0, 0.0,
-                    -0.5, -0.5, 0.0, 0.0, 1.0, 0.0,
-                    0.5, -0.5, 0.0, 0.0, 0.0, 1.0];
+    const vertices = [0.0, -0.5, 0.0, 1.0, 0.0, 0.0,
+                    -0.5, 0.5, 0.0, 0.0, 1.0, 0.0,
+                    0.5, 0.5, 0.0, 0.0, 0.0, 1.0];
     
     CreateVBO(program, new Float32Array(vertices));
 
@@ -142,7 +142,7 @@ function CreateVBO(program, vert)
 
 function Render()
 {
-    gl.clearColor(0.0, 0.4, 0.6, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.clearColor(0.0, 0.4, 0.6, 1.0); //Sætter baggrundsfarve
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); //Rydder eventuelt gemt data i Color Buffer og Depth Buffer
+    gl.drawArrays(gl.TRIANGLES, 0, 3); //Tegner trekanten
 }
